@@ -1,0 +1,38 @@
+@import url("./__image/card-grid__image.css");
+@import url("./__item/card-grid__item.css");
+@import url("./__label/card-grid__label.css");
+@import url("./__like/card-grid__like.css");
+@import url("./__place/card-grid__place.css");
+@import url("./__delete-button/card-grid__delete-button.css");
+@import url("./__like/_active/card-grid__like_active.css");
+@import url("./__like-count/card-grid__like-count.css");
+@import url("./__delete-button/_disable/card-grid__delete-button_disable.css");
+.card-grid {
+  max-width: 1200px;
+  margin: auto;
+  padding-bottom: 66px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 21px 18px;
+}
+
+@media screen and (max-width:1741px) {
+  .card-grid {
+    max-width: calc(100%*882/1280);
+  }
+}
+
+@media screen and (max-width:950px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: calc(100%*282/320);
+  }
+}
+
+@media screen and (max-width:500px) {
+  .card-grid {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+    padding-bottom: 48px;
+  }
+}

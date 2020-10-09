@@ -1,0 +1,18 @@
+.info-tooltip__title {
+  padding: 0;
+  margin: auto;
+  margin-bottom: 60px;
+  text-align: center;
+  max-width: calc(100%*358/430);
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+@media screen and (max-width:500px) {
+  .info-tooltip__title {
+    max-width: calc(100%*244/280);
+    font-size: 20px;
+    line-height: 24px;
+  }
+}

@@ -1,0 +1,36 @@
+@import url(./__logo/header__logo.css);
+@import url(./__email/header__email.css);
+@import url(./__container/header__container.css);
+@import url(./__button/header__button.css);
+@import url(./__menu-button/header__menu-button.css);
+@import url(./__close-button/header__close-button.css);
+.header {
+  width: 1200px;
+  margin: auto;
+  padding-top: 45px;
+  padding-bottom: 40.6px;
+  border-bottom: 1px solid #545454;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width:1741px) {
+  .header {
+    width: calc(100%*882/1280);
+  }
+}
+
+@media screen and (max-width:950px) {
+  .header {
+    width: 100%;
+    padding-top: 28px;
+    padding-bottom: 31.6px;
+  }
+}
+
+@media screen and (max-width:500px) {
+  .header {
+    padding-top: 40px;
+    padding-bottom: 27px;
+  }
+}

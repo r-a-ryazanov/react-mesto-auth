@@ -1,0 +1,11 @@
+.popup__error {
+  margin: auto;
+  width: calc(100%*358/430);
+  word-break: break-all;
+  margin-top: 5px;
+  margin-bottom: -17px;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+  display: none;
+}

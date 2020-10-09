@@ -1,0 +1,21 @@
+.popup__apply-button {
+  margin: auto;
+  width: calc(100%*358/430);
+  margin-bottom: 36.51px;
+  margin-top: 48px;
+  background-color: #000000;
+  border-radius: 2px;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+  outline: none;
+  border: none;
+  padding-top: 13.66px;
+  padding-bottom: 18.49px;
+  transition: background-color 1s linear 0s;
+}
+
+.popup__apply-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+}

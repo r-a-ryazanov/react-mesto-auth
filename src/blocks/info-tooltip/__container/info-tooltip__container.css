@@ -1,0 +1,13 @@
+.info-tooltip__container {
+  width: calc(100%*430/1280);
+  border-radius: 10px;
+  background-color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width:500px) {
+  .info-tooltip__container {
+    width: calc(100%*280/320);
+  }
+}

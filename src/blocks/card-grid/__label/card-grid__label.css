@@ -1,0 +1,9 @@
+.card-grid__label {
+  max-width: calc(100%*246/282);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 25px;
+  padding-bottom: 31px;
+}
