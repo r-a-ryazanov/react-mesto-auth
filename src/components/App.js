@@ -33,13 +33,16 @@ function App() {
           setEmail(result.data.email);
           setloggedIn(true);
           history.push('/main');
+        }else{
+          localStorage.removeItem('token');
         }
       })
     }
-    api.getInitialCards()
-      .then((result) => {
-        setCards(result);
-      });
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then((results) => {
+      setCurrentUser(results[0]);
+      setCards(results[1]);
+    });
   }, []);
   //---------Обработчик клика кнопку лайка карточки----------------
   function handleCardLike(card) {
@@ -137,12 +140,6 @@ function App() {
     localStorage.removeItem('token');
     history.push('/sign-in');
   }
-  React.useEffect(() => {
-    api.getUserInfo()
-      .then((result) => {
-        setCurrentUser(result);
-      });
-  }, []);
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">

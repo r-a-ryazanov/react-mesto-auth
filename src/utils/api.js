@@ -2,18 +2,18 @@ class Api {
   constructor(options) {
     this._options = options;
   }
-  
+   handleResponse = res =>{
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  };
   //-------Функция загрузки карточек с сервера
   getInitialCards() {
     return fetch(`${this._options.baseUrl}/cards`, {
       headers: this._options.headers
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this.handleResponse)
       .catch((err) => {
         console.log(err);
       });
@@ -23,12 +23,7 @@ class Api {
     return fetch(`${this._options.baseUrl}/users/me`, {
       headers: this._options.headers
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this.handleResponse)
       .catch((err) => {
         console.log(err);
       });
@@ -39,12 +34,7 @@ class Api {
       method: isLike ? ('PUT') : ('DELETE'),
       headers: this._options.headers
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this.handleResponse)
       .catch((err) => {
         console.log(err);
       });
@@ -55,12 +45,7 @@ class Api {
       method: 'DELETE',
       headers: this._options.headers
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this.handleResponse)
       .catch((err) => {
         console.log(err);
       });
@@ -75,12 +60,7 @@ class Api {
         about: inputData.about
       })
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this.handleResponse)
       .catch((err) => {
         console.log(err);
       });
@@ -94,12 +74,7 @@ class Api {
         avatar: inputData
       })
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this.handleResponse)
       .catch((err) => {
         console.log(err);
       });
@@ -114,12 +89,7 @@ class Api {
         link: inputData.link
       })
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this.handleResponse)
       .catch((err) => {
         console.log(err);
       });
