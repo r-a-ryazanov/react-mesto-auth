@@ -30,7 +30,12 @@ function App() {
       api.verifyToken(localStorage.getItem('token'))
       .then((result)=>{      
         if(result){
+          setCurrentUser({name: result.data.name, about:result.data.about, avatar: result.data.avatar});
           setEmail(result.data.email);
+          api.getInitialCards(localStorage.getItem('token'))
+          .then((result) => {
+            setCards(result)
+          });
           setloggedIn(true);
           history.push('/main');
         }else{
@@ -38,24 +43,22 @@ function App() {
         }
       })
     }
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-    .then((results) => {
-      setCurrentUser(results[0]);
-      setCards(results[1]);
-    });
+    
   }, []);
   //---------Обработчик клика кнопку лайка карточки----------------
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, !isLiked, localStorage.getItem('token'))
+    .then((newCard) => {
       const newCards = cards.map((c) => c._id === card._id ? newCard : c);
       setCards(newCards);
     });
   }
   //---------Обработчик клика кнопку удаления карточки----------------
   function handleCardDelete(card) {
-    api.deleteCard(card._id);
-    setCards(cards.filter((item) => { return item._id != card._id }));
+    api.deleteCard(card._id, localStorage.getItem('token'))
+    .then((result) =>  setCards(cards.filter((item) => { return item._id != card._id })));
+  
   }
   //---------Обработчик клика кнопку изменения аватара----------------
   function handleEditAvatarClick() {
@@ -83,7 +86,7 @@ function App() {
   }
   //---------Обработчик клика кнопку сохранить всплывающего окна изменения профиля----------------
   function handleUpdateUser(input) {
-    api.updateUserInfo(input)
+    api.updateUserInfo(input, localStorage.getItem('token'))
       .then((result) => {
         setCurrentUser(result);
         closeAllPopups();
@@ -91,7 +94,7 @@ function App() {
   }
   //---------Обработчик клика кнопку сохранить всплывающего окна изменения аватара----------------
   function handleUpdateAvatar(input) {
-    api.updateUserAvatar(input.avatar)
+    api.updateUserAvatar(input.avatar, localStorage.getItem('token'))
       .then((result) => {
         setCurrentUser(result);
         closeAllPopups();
@@ -99,10 +102,12 @@ function App() {
   }
   //---------Обработчик клика кнопку создать всплывающего окна добавления карточки----------------
   function handleAddPlaceSubmit(input) {
-    api.addCard(input)
+    api.addCard(input, localStorage.getItem('token'))
       .then((result) => {
+        if(result){
         setCards([...cards, result]);
         closeAllPopups();
+        }
       });
   }
 //---------Обработчик клика кнопку зарегистрироваться----------------
@@ -112,7 +117,7 @@ function App() {
     api.registerUser(registerData, ()=>{setIsInfoTooltipOpen(true)})
     .then((result) => {
       if(result) {
-        setloggedIn(true); 
+        setloggedIn(true);
         setIsInfoTooltipOpen(true);   
         history.push('/sign-in');     
       }
@@ -125,6 +130,11 @@ function App() {
     api.loginUser(loginData, ()=>{setIsInfoTooltipOpen(true)})
         .then((result) =>{
           if(result) {
+            api.getInitialCards(result.token)
+          .then((result) => {
+            setCards(result)
+          });
+            setCurrentUser({name: result.data.name, about:result.data.about, avatar: result.data.avatar});
             setloggedIn(true);
             setEmail(loginData.email);  
             localStorage.setItem('token', result.token); 

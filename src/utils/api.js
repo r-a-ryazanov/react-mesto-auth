@@ -9,30 +9,23 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   };
   //-------Функция загрузки карточек с сервера
-  getInitialCards() {
+  getInitialCards(token) {
     return fetch(`${this._options.baseUrl}/cards`, {
-      headers: this._options.headers
+      headers: {"Content-Type": "application/json",
+      "Authorization" : `Bearer ${token}`}  
     })
       .then(this.handleResponse)
       .catch((err) => {
         console.log(err);
       });
   }
-  //-----------Функция загрузки информации о пользователе с сервера
-  getUserInfo() {
-    return fetch(`${this._options.baseUrl}/users/me`, {
-      headers: this._options.headers
-    })
-      .then(this.handleResponse)
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-  //------Функция добавления лайка карточке
-  changeLikeCardStatus(cardId, isLike) {
+
+  //------Функция добавления/удаления лайка карточке
+  changeLikeCardStatus(cardId, isLike, token) {
     return fetch(`${this._options.baseUrl}/cards/likes/${cardId}`, {
       method: isLike ? ('PUT') : ('DELETE'),
-      headers: this._options.headers
+      headers: {"Content-Type": "application/json",
+      "Authorization" : `Bearer ${token}`}
     })
       .then(this.handleResponse)
       .catch((err) => {
@@ -40,10 +33,11 @@ class Api {
       });
   }
   //-----Функция удаления карточки
-  deleteCard(cardId) {
+  deleteCard(cardId, token) {
     return fetch(`${this._options.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this._options.headers
+      headers: {"Content-Type": "application/json",
+      "Authorization" : `Bearer ${token}`}
     })
       .then(this.handleResponse)
       .catch((err) => {
@@ -51,10 +45,11 @@ class Api {
       });
   }
   //---------------Функция обновления данных пользователя
-  updateUserInfo(inputData) {
+  updateUserInfo(inputData, token) {
     return fetch(`${this._options.baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._options.headers,
+      headers: {"Content-Type": "application/json",
+      "Authorization" : `Bearer ${token}`},
       body: JSON.stringify({
         name: inputData.name,
         about: inputData.about
@@ -66,10 +61,11 @@ class Api {
       });
   }
   //---------Функция обновления аватара пользователя
-  updateUserAvatar(inputData) {
+  updateUserAvatar(inputData, token) {
     return fetch(`${this._options.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._options.headers,
+      headers: {"Content-Type": "application/json",
+      "Authorization" : `Bearer ${token}`},
       body: JSON.stringify({
         avatar: inputData
       })
@@ -80,10 +76,11 @@ class Api {
       });
   }
    //--------Функция добавления карточки
-   addCard(inputData) {
+   addCard(inputData, token) {
     return fetch(`${this._options.baseUrl}/cards`, {
       method: 'POST',
-      headers: this._options.headers,
+      headers: {"Content-Type": "application/json",
+      "Authorization" : `Bearer ${token}`},
       body: JSON.stringify({
         name: inputData.name,
         link: inputData.link
@@ -96,7 +93,7 @@ class Api {
   }
   //--------Функция регистрации пользователя
   registerUser(registerData, handleError){
-    return fetch(`https://auth.nomoreparties.co/signup`, {
+    return fetch(`${this._options.baseUrl}/users/signup`, {
       method: 'POST',
       headers: {"Content-Type": "application/json"} ,
       body: JSON.stringify({
@@ -118,7 +115,7 @@ class Api {
   }
   //--------Функция авторизации пользователя
   loginUser(loginData, handleError){
-    return fetch(`https://auth.nomoreparties.co/signin`, {
+    return fetch(`${this._options.baseUrl}/users/signin`, {
       method: 'POST',
       headers: {"Content-Type": "application/json"} ,
       body: JSON.stringify({
@@ -143,7 +140,7 @@ class Api {
   }
   //--------Функция проверки токена
   verifyToken(token){
-    return fetch(`https://auth.nomoreparties.co/users/me`, {
+    return fetch(`${this._options.baseUrl}/users/me`, {
       method: 'GET',
       headers: {"Content-Type": "application/json",
       "Authorization" : `Bearer ${token}`} 
@@ -160,10 +157,7 @@ class Api {
   }
 }
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-13',
-  headers: {
-    authorization: '0dcb61a0-e155-4c98-8825-cdfb2e75e352',
-    'Content-Type': 'application/json'
-  }
+  baseUrl: 'http://localhost:3001',
+  
 });
 export default api;
