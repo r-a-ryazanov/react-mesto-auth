@@ -88,16 +88,20 @@ function App() {
   function handleUpdateUser(input) {
     api.updateUserInfo(input, localStorage.getItem('token'))
       .then((result) => {
-        setCurrentUser(result);
-        closeAllPopups();
+        if(result){
+          setCurrentUser(result);
+          closeAllPopups();
+        }
       });
   }
   //---------Обработчик клика кнопку сохранить всплывающего окна изменения аватара----------------
   function handleUpdateAvatar(input) {
     api.updateUserAvatar(input.avatar, localStorage.getItem('token'))
       .then((result) => {
-        setCurrentUser(result);
-        closeAllPopups();
+        if(result){
+          setCurrentUser(result);
+          closeAllPopups();
+        }
       });
   }
   //---------Обработчик клика кнопку создать всплывающего окна добавления карточки----------------
