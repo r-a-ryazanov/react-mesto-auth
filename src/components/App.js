@@ -57,7 +57,11 @@ function App() {
   //---------Обработчик клика кнопку удаления карточки----------------
   function handleCardDelete(card) {
     api.deleteCard(card._id, localStorage.getItem('token'))
-    .then((result) =>  setCards(cards.filter((item) => { return item._id != card._id })));
+    .then((result) =>  {
+      if(result){
+        setCards(cards.filter((item) => { return item._id != card._id }));
+      }
+    });
   
   }
   //---------Обработчик клика кнопку изменения аватара----------------

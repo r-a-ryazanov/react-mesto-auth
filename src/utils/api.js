@@ -93,7 +93,7 @@ class Api {
   }
   //--------Функция регистрации пользователя
   registerUser(registerData, handleError){
-    return fetch(`${this._options.baseUrl}/users/signup`, {
+    return fetch(`${this._options.baseUrl}/signup`, {
       method: 'POST',
       headers: {"Content-Type": "application/json"} ,
       body: JSON.stringify({
@@ -115,7 +115,7 @@ class Api {
   }
   //--------Функция авторизации пользователя
   loginUser(loginData, handleError){
-    return fetch(`${this._options.baseUrl}/users/signin`, {
+    return fetch(`${this._options.baseUrl}/signin`, {
       method: 'POST',
       headers: {"Content-Type": "application/json"} ,
       body: JSON.stringify({
