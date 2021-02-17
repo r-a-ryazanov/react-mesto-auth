@@ -19,4 +19,4 @@
 ***
 При выполнении работы использовался компонентный подход к вэб-разработке - БЭМ.
 ***
-<https://ryazanov.students.nomoreparties.co/>
+<https://mesto.sytes.net/>
